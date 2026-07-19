@@ -32,14 +32,20 @@ platformcat/
 │           └── resources/
 │               ├── application.yml
 │               └── logback-spring.xml
-├── ui-kit-starter/         # стартер-плагин UI-kit
+├── ui-kit-starter/         # стартер-плагин UI-kit + галерея компонентов
 │   ├── pom.xml
 │   └── src/main/
 │       ├── java/io/github/dr8b/platformcat/uikit/
+│       │   ├── Main.java                  # standalone-запуск галереи
+│       │   ├── UiKit.java                 # базовые пути (groupId/artifactId)
 │       │   ├── UiKitAutoConfiguration.java
-│       │   └── UiKitProperties.java
-│       └── resources/META-INF/spring/
-│           └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
+│       │   ├── UiKitProperties.java
+│       │   ├── component/                 # метаданные компонентов (реестр)
+│       │   └── web/                       # контроллеры: выдача .js и галерея
+│       └── resources/
+│           ├── META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+│           ├── ui-kit/static/             # исходники веб-компонентов pc-*.js
+│           └── templates/ui-kit/gallery.html
 └── standard-kit-starter/   # стартер-плагин standard-kit (зависит от ui-kit)
     ├── pom.xml
     └── src/main/
@@ -66,6 +72,16 @@ mvn -pl app spring-boot:run
 ```bash
 mvn test
 ```
+
+### Галерея UI Kit
+Запуск модуля `ui-kit-starter` отдельно, чтобы посмотреть все компоненты:
+```bash
+mvn -pl ui-kit-starter spring-boot:run
+```
+Затем открыть <http://localhost:8080/io.github.dr8b.platformcat/ui-kit-starter>.
+Компоненты выбираются в дереве слева, превью — сверху по центру, атрибуты и
+примеры значений — снизу. Сами компоненты отдаются как `.js` по адресу
+`/io.github.dr8b.platformcat/ui-kit-starter/static/<component>.js`.
 
 ## Документация
 

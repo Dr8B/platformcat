@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Kit — галерея компонентов</title>
+    <script th:each="c : ${components}" th:src="${staticPath + '/' + c.tag + '.js'}" defer></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        window.PC_COMPONENTS = /*[[${components}]]*/ [];
+        /*]]>*/
+    </script>
+    <style>
+        :root {
+            --bg: #f8fafc; --panel: #ffffff; --border: #e2e8f0; --text: #1f2937;
+            --muted: #6b7280; --accent: #2563eb; --sidebar: #0f172a; --sidebar-text: #cbd5e1;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            color: var(--text); background: var(--bg); height: 100vh; display: flex; flex-direction: column; }
+        header { padding: .9rem 1.25rem; background: var(--sidebar); color: #fff;
+            display: flex; align-items: baseline; gap: .75rem; }
+        header h1 { font-size: 1.05rem; margin: 0; }
+        header small { color: #94a3b8; font-size: .8rem; }
+        .layout { flex: 1; display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
+        nav { background: var(--sidebar); color: var(--sidebar-text); overflow-y: auto; padding: .5rem 0; }
+        nav .group { padding: .6rem 1.25rem .3rem; font-size: .72rem; text-transform: uppercase;
+            letter-spacing: .05em; color: #64748b; }
+        nav a { display: block; padding: .5rem 1.25rem; color: var(--sidebar-text);
+            text-decoration: none; cursor: pointer; font-size: .92rem; border-left: 3px solid transparent; }
+        nav a:hover { background: rgba(255,255,255,.05); }
+        nav a.active { background: rgba(37,99,235,.18); color: #fff; border-left-color: var(--accent); }
+        main { display: grid; grid-template-rows: 1fr auto; min-height: 0; min-width: 0; }
+        .preview { display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            gap: 1.25rem; padding: 2rem; overflow: auto; }
+        .preview h2 { margin: 0; font-size: 1.4rem; }
+        .preview .desc { color: var(--muted); margin: -.5rem 0 .5rem; max-width: 640px; text-align: center; }
+        .stage { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;
+            padding: 2rem; background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+            min-width: min(680px, 90%); }
+        .details { border-top: 1px solid var(--border); background: var(--panel);
+            max-height: 42vh; overflow: auto; padding: 1.25rem 1.5rem; }
+        .details h3 { margin: 0 0 .6rem; font-size: .95rem; }
+        table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-bottom: 1.25rem; }
+        th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+        code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .82em;
+            background: #f1f5f9; padding: .12em .4em; border-radius: 5px; }
+        .chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+        .chip { background: #eef2ff; color: #3730a3; border-radius: 6px; padding: .1em .5em; font-size: .8rem; }
+        .snippets pre { margin: 0 0 .5rem; background: #0f172a; color: #e2e8f0; padding: .7rem .9rem;
+            border-radius: 8px; overflow-x: auto; font-size: .82rem; }
+        .empty { color: var(--muted); padding: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>UI Kit</h1>
+    <small th:text="${basePath}">/base</small>
+</header>
+<div class="layout">
+    <nav id="tree"></nav>
+    <main>
+        <section class="preview" id="preview">
+            <div class="empty">Выберите компонент слева</div>
+        </section>
+        <section class="details" id="details" hidden>
+            <h3>Атрибуты</h3>
+            <table>
+                <thead>
+                <tr><th>Атрибут</th><th>Тип</th><th>Описание</th><th>Примеры значений</th></tr>
+                </thead>
+                <tbody id="attrs"></tbody>
+            </table>
+            <h3>Примеры разметки</h3>
+            <div class="snippets" id="snippets"></div>
+        </section>
+    </main>
+</div>
+
+<script>
+    (function () {
+        const components = window.PC_COMPONENTS || [];
+        const tree = document.getElementById('tree');
+        const preview = document.getElementById('preview');
+        const details = document.getElementById('details');
+        const attrs = document.getElementById('attrs');
+        const snippets = document.getElementById('snippets');
+
+        const groups = {};
+        components.forEach((c) => {
+            (groups[c.category] = groups[c.category] || []).push(c);
+        });
+
+        Object.keys(groups).forEach((category) => {
+            const label = document.createElement('div');
+            label.className = 'group';
+            label.textContent = category;
+            tree.appendChild(label);
+            groups[category].forEach((c) => {
+                const link = document.createElement('a');
+                link.textContent = c.title;
+                link.dataset.key = c.key;
+                link.addEventListener('click', () => select(c, link));
+                tree.appendChild(link);
+            });
+        });
+
+        function escapeHtml(s) {
+            return s.replace(/[&<>]/g, (ch) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;'}[ch]));
+        }
+
+        function select(c, link) {
+            document.querySelectorAll('#tree a').forEach((a) => a.classList.remove('active'));
+            link.classList.add('active');
+
+            preview.innerHTML =
+                '<h2></h2><p class="desc"></p><div class="stage"></div>';
+            preview.querySelector('h2').textContent = c.title;
+            preview.querySelector('.desc').textContent = c.description;
+            preview.querySelector('.stage').innerHTML = c.examples.join('');
+
+            attrs.innerHTML = '';
+            c.attributes.forEach((a) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td><code>' + a.name + '</code></td>' +
+                    '<td>' + a.type + '</td>' +
+                    '<td>' + a.description + '</td>' +
+                    '<td><div class="chips">' +
+                    a.examples.map((v) => '<span class="chip">' + (v === '' ? '∅' : escapeHtml(v)) + '</span>').join('') +
+                    '</div></td>';
+                attrs.appendChild(tr);
+            });
+
+            snippets.innerHTML = c.examples
+                .map((ex) => '<pre>' + escapeHtml(ex) + '</pre>')
+                .join('');
+
+            details.hidden = false;
+        }
+
+        const first = tree.querySelector('a');
+        if (first) {
+            first.click();
+        }
+    })();
+</script>
+</body>
+</html>

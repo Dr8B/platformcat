@@ -55,7 +55,7 @@ feature-foo/
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
 | `app`         | Основной модуль приложения. Точка входа — `Main`. |
-| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Зависит от `spring-boot-starter-web`. |
+| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Набор веб-компонентов (`pc-*`), контроллер выдачи их `.js`, Thymeleaf-галерея и собственный `Main` для standalone-запуска. Зависит от `spring-boot-starter-web`, `spring-boot-starter-thymeleaf`. |
 | `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.standard-kit-starter")`. Зависит от `ui-kit-starter`; подключён к `app`. |
 
 ## Управление зависимостями
@@ -73,6 +73,29 @@ feature-foo/
 - Префикс конфигурационных свойств стартера = `groupId.artifactId`
   (например, `io.github.dr8b.platformcat.ui-kit-starter`). Он же используется в
   `@ConfigurationProperties` и `@ConditionalOnProperty`.
+
+## UI Kit
+
+Модуль `ui-kit-starter` поставляет набор веб-компонентов (нативные custom
+elements с префиксом `pc-`): `pc-button`, `pc-input`, `pc-checkbox`, `pc-radio`,
+`pc-slider`, `pc-upload`, `pc-spinner`, `pc-loader`, `pc-banner`,
+`pc-modal-close`.
+
+- **Исходники** компонентов — `resources/ui-kit/static/<tag>.js`.
+- **Выдача статики**: `UiKitComponentController` отдаёт их как `text/javascript`
+  по пути `/<groupId>/<artifactId>/static/<component>.js`, то есть
+  `/io.github.dr8b.platformcat/ui-kit-starter/static/pc-button.js`. Базовый путь
+  централизован в классе `UiKit`.
+- **Метаданные** (описание, атрибуты, примеры значений) — `UiComponentRegistry`.
+- **Галерея**: `UiKitGalleryController` + Thymeleaf-шаблон `ui-kit/gallery.html`
+  на `/<groupId>/<artifactId>`. Слева — дерево компонентов по категориям,
+  сверху по центру — превью выбранного компонента, снизу — таблица атрибутов и
+  примеры разметки.
+- **Standalone-запуск**: `io.github.dr8b.platformcat.uikit.Main`
+  (`mvn -pl ui-kit-starter spring-boot:run`) — поднимает только этот модуль, всё
+  остальное приходит через автоконфигурацию. Контроллеры и реестр
+  регистрируются в `UiKitAutoConfiguration` (`@Import` + `@Bean`), поэтому
+  доступны и при подключении стартера как зависимости.
 
 ## Логирование
 
