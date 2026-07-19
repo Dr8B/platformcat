@@ -1,4 +1,7 @@
-package io.github.dr8b.platformcat.uikit.component;
+package io.github.dr8b.platformcat.uikit.services;
+
+import io.github.dr8b.platformcat.uikit.model.UiComponent;
+import io.github.dr8b.platformcat.uikit.model.UiComponentAttribute;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package io.github.dr8b.platformcat.standardkit;
+package io.github.dr8b.platformcat.standardkit.config;
 
-import io.github.dr8b.platformcat.uikit.UiKitAutoConfiguration;
+import io.github.dr8b.platformcat.uikit.config.UiKitAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

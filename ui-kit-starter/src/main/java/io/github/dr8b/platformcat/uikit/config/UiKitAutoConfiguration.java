@@ -1,8 +1,8 @@
-package io.github.dr8b.platformcat.uikit;
+package io.github.dr8b.platformcat.uikit.config;
 
-import io.github.dr8b.platformcat.uikit.component.UiComponentRegistry;
-import io.github.dr8b.platformcat.uikit.web.UiKitComponentController;
-import io.github.dr8b.platformcat.uikit.web.UiKitGalleryController;
+import io.github.dr8b.platformcat.uikit.controllers.UiKitComponentController;
+import io.github.dr8b.platformcat.uikit.controllers.UiKitGalleryController;
+import io.github.dr8b.platformcat.uikit.services.UiComponentRegistry;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

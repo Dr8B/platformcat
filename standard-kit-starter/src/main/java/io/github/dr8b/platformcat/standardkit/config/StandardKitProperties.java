@@ -1,4 +1,4 @@
-package io.github.dr8b.platformcat.standardkit;
+package io.github.dr8b.platformcat.standardkit.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,7 +1,7 @@
-package io.github.dr8b.platformcat.uikit.web;
+package io.github.dr8b.platformcat.uikit.controllers;
 
 import io.github.dr8b.platformcat.uikit.UiKit;
-import io.github.dr8b.platformcat.uikit.component.UiComponentRegistry;
+import io.github.dr8b.platformcat.uikit.services.UiComponentRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

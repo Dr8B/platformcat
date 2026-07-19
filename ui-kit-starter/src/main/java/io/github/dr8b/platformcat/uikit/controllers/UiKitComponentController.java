@@ -1,4 +1,4 @@
-package io.github.dr8b.platformcat.uikit.web;
+package io.github.dr8b.platformcat.uikit.controllers;
 
 import io.github.dr8b.platformcat.uikit.UiKit;
 import org.springframework.core.io.ClassPathResource;
