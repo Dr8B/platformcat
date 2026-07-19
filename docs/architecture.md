@@ -55,7 +55,8 @@ feature-foo/
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
 | `platform`    | Основной модуль приложения. Точка входа — `PlatformcatApplication`. |
-| `platform-ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Подключается зависимостью. |
+| `platform-ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Зависит от `spring-boot-starter-web`. |
+| `platform-standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.standard-kit")`. Зависит от `platform-ui-kit-starter`; подключён к `platform`. |
 
 ## Управление зависимостями
 

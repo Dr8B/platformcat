@@ -11,6 +11,7 @@
 
     <modules>
         <module>platform-ui-kit-starter</module>
+        <module>platform-standard-kit-starter</module>
         <module>platform</module>
     </modules>
 

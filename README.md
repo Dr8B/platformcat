@@ -34,12 +34,20 @@ platformcat/
 │       │       └── logback-spring.xml
 │       └── test/java/io/github/dr8b/platformcat/
 │           └── PlatformcatApplicationTests.java
-└── platform-ui-kit-starter/  # стартер-плагин UI-kit
+├── platform-ui-kit-starter/  # стартер-плагин UI-kit
+│   ├── pom.xml
+│   └── src/main/
+│       ├── java/io/github/dr8b/platformcat/uikit/
+│       │   ├── UiKitAutoConfiguration.java
+│       │   └── UiKitProperties.java
+│       └── resources/META-INF/spring/
+│           └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
+└── platform-standard-kit-starter/  # стартер-плагин standard-kit (зависит от ui-kit)
     ├── pom.xml
     └── src/main/
-        ├── java/io/github/dr8b/platformcat/uikit/
-        │   ├── UiKitAutoConfiguration.java
-        │   └── UiKitProperties.java
+        ├── java/io/github/dr8b/platformcat/standardkit/
+        │   ├── StandardKitAutoConfiguration.java
+        │   └── StandardKitProperties.java
         └── resources/META-INF/spring/
             └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
 ```
