@@ -1,8 +1,48 @@
-# Guidelines
+# CLAUDE.md
+
+Правила работы над проектом **platformcat** для ассистента.
+
+## О проекте
+
+Расширяемая платформа на Spring Boot: сам Spring Boot — платформа, каждая фича
+подключается как отдельный стартер-плагин. Код следует SOLID и опирается на
+встроенные возможности Spring. Подробнее — в [README](README.md),
+[ТЗ](docs/tz.md) и [архитектуре](docs/architecture.md).
+
+- **Java**: 25, **Spring Boot**: 4.1.0, **сборка**: Maven (multi-module).
+- **groupId**: `io.github.dr8b.platformcat`.
+- Модули: `app` (основной), `ui-kit-starter` (UI-kit + галерея, тянет
+  `spring-boot-starter-web`), `standard-kit-starter` (зависит от `ui-kit`).
+
+## Зависимости
+
+- Версии зависимостей проставляются только в parent-помнике в
+  `dependencyManagement`; в модулях зависимости указываются без версий.
+- Если версия управляется импортированным BOM (например,
+  `spring-boot-dependencies`), отдельно прописывать её в `dependencyManagement`
+  не нужно.
+
+## Стартеры
+
+- Префикс конфигурационных свойств стартера = `groupId.artifactId` (например,
+  `io.github.dr8b.platformcat.ui-kit-starter`). Один и тот же префикс
+  используется в `@ConfigurationProperties` и `@ConditionalOnProperty`.
+
+## UI-kit
+
+- Веб-компоненты — нативные custom elements с префиксом `pc-`.
+- Исходники: `ui-kit-starter/src/main/resources/ui-kit/static/<tag>.js`.
+- Отдаются контроллером по пути `/<groupId>/<artifactId>/static/<component>.js`.
+- Новый компонент = js-файл + запись в `UiComponentRegistry` (метаданные для
+  галереи).
+
+## Код
 
 - Не добавляй комментарии в код без явной просьбы.
-- Все версии зависимостей должны быть проставлены в parent-помнике в секции `dependencyManagement`, а в модулях зависимости указываются без версий. Если версия уже управляется импортированным BOM (например, `spring-boot-dependencies`), отдельно прописывать её в `dependencyManagement` не нужно.
-- Префикс конфигурационных свойств стартера должен совпадать с `groupId.artifactId` (например, `io.github.dr8b.platformcat.ui-kit-starter`). Один и тот же префикс используется в `@ConfigurationProperties` и `@ConditionalOnProperty`.
-- Веб-компоненты UI-kit — нативные custom elements с префиксом `pc-`, исходники в `ui-kit-starter/src/main/resources/ui-kit/static/<tag>.js`, отдаются контроллером по пути `/<groupId>/<artifactId>/static/<component>.js`. Новый компонент = js-файл + запись в `UiComponentRegistry` (метаданные для галереи).
-- Коммитить можно только с разрешения пользователя. Пушить не нужно — но после коммита напоминай про пуш и показывай список доступных remote (`git remote -v`).
-- При значимых изменениях, затрагивающих требования, предлагай зафиксировать это в требованиях/ТЗ, а также в README, если похоже, что его нужно поправить.
+
+## Процесс
+
+- Коммитить можно только с разрешения пользователя. Пушить не нужно — но после
+  коммита напоминай про пуш и показывай список доступных remote (`git remote -v`).
+- При значимых изменениях, затрагивающих требования, предлагай зафиксировать это
+  в требованиях/ТЗ, а также в README, если похоже, что его нужно поправить.
