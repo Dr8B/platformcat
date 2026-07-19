@@ -13,12 +13,19 @@ import org.springframework.context.annotation.Import;
 @AutoConfiguration
 @EnableConfigurationProperties(UiKitProperties.class)
 @ConditionalOnProperty(prefix = "io.github.dr8b.platformcat.ui-kit-starter", name = "enabled", matchIfMissing = true)
-@Import({UiKitComponentController.class, UiKitGalleryController.class})
+@Import(UiKitComponentController.class)
 public class UiKitAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
     public UiComponentRegistry uiComponentRegistry() {
         return new UiComponentRegistry();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "io.github.dr8b.platformcat.ui-kit-starter", name = "gallery")
+    public UiKitGalleryController uiKitGalleryController(UiComponentRegistry uiComponentRegistry) {
+        return new UiKitGalleryController(uiComponentRegistry);
     }
 }

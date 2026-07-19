@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 public class Main {
 
     public static void main(String[] args) {
+        System.setProperty("io.github.dr8b.platformcat.ui-kit-starter.gallery", "true");
         SpringApplication.run(Main.class, args);
     }
 }

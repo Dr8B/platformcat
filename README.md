@@ -83,6 +83,12 @@ mvn -pl ui-kit-starter spring-boot:run
 примеры значений — снизу. Сами компоненты отдаются как `.js` по адресу
 `/io.github.dr8b.platformcat/ui-kit-starter/static/<component>.js`.
 
+Галерея активна только при настройке
+`io.github.dr8b.platformcat.ui-kit-starter.gallery=true` (по умолчанию выключена).
+`Main` модуля выставляет её как системную проперть перед запуском Spring Boot,
+поэтому в standalone-режиме она доступна; при подключении стартера как
+зависимости галерея не поднимается, если свойство не задано.
+
 ## Документация
 
 - [Техническое задание](docs/tz.md)
