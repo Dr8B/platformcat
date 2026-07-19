@@ -55,8 +55,8 @@ feature-foo/
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
 | `app`         | Основной модуль приложения. Точка входа — `Main`. |
-| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Набор веб-компонентов (`pc-*`) и контроллер выдачи их `.js`. Зависит от `spring-boot-starter-web`, `spring-boot-starter-thymeleaf`. |
-| `ui-kit-gallery` | Standalone-приложение галереи: контроллер галереи, Thymeleaf-шаблон и собственный `Main` для просмотра компонентов. Зависит от `ui-kit-starter`; в `app` не подключается. |
+| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Набор веб-компонентов (`pc-*`) и контроллер выдачи их `.js`. Зависит от `spring-boot-starter-web`. |
+| `ui-kit-gallery` | Standalone-приложение галереи: контроллер галереи, Thymeleaf-шаблон и собственный `Main` для просмотра компонентов. Зависит от `ui-kit-starter` и `spring-boot-starter-thymeleaf`; в `app` не подключается. |
 | `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.standard-kit-starter")`. Зависит от `ui-kit-starter`; подключён к `app`. |
 
 ## Управление зависимостями
