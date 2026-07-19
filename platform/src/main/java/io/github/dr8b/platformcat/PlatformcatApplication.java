@@ -1,4 +1,4 @@
-package com.example;
+package io.github.dr8b.platformcat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

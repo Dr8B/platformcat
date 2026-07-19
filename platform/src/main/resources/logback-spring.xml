@@ -26,6 +26,6 @@
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="com.example" level="DEBUG"/>
+    <logger name="io.github.dr8b.platformcat" level="DEBUG"/>
 
 </configuration>

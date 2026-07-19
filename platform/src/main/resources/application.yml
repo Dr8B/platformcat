@@ -8,4 +8,4 @@ server:
 logging:
   level:
     root: INFO
-    com.example: DEBUG
+    io.github.dr8b.platformcat: DEBUG

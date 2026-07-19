@@ -12,7 +12,9 @@
 - **Сборка**: Maven (multi-module)
 - **Логирование**: SLF4J + Logback
 
-> Веб-стартер не подключён — встроенного HTTP-сервера сейчас нет.
+> HTTP-слой подключается через стартер `platform-ui-kit-starter` (тянет
+> `spring-boot-starter-web`): при его подключении к приложению поднимается
+> встроенный Tomcat и работает `server.port`.
 
 ## Структура
 
@@ -21,17 +23,25 @@ platformcat/
 ├── pom.xml                 # parent POM: версии, dependencyManagement, BOM
 ├── README.md
 ├── docs/                   # проектная документация (ТЗ, архитектура)
-└── platform/               # основной модуль
+├── platform/               # основной модуль
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       │   ├── java/io/github/dr8b/platformcat/
+│       │   │   └── PlatformcatApplication.java
+│       │   └── resources/
+│       │       ├── application.yml
+│       │       └── logback-spring.xml
+│       └── test/java/io/github/dr8b/platformcat/
+│           └── PlatformcatApplicationTests.java
+└── platform-ui-kit-starter/  # стартер-плагин UI-kit
     ├── pom.xml
-    └── src/
-        ├── main/
-        │   ├── java/com/example/
-        │   │   └── PlatformcatApplication.java
-        │   └── resources/
-        │       ├── application.yml
-        │       └── logback-spring.xml
-        └── test/java/com/example/
-            └── PlatformcatApplicationTests.java
+    └── src/main/
+        ├── java/io/github/dr8b/platformcat/uikit/
+        │   ├── UiKitAutoConfiguration.java
+        │   └── UiKitProperties.java
+        └── resources/META-INF/spring/
+            └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
 ```
 
 ## Быстрый старт

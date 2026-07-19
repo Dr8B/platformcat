@@ -42,7 +42,7 @@
 feature-foo/
 ├── pom.xml
 └── src/main/
-    ├── java/com/example/foo/
+    ├── java/io/github/dr8b/platformcat/foo/
     │   ├── FooAutoConfiguration.java   # @AutoConfiguration + @ConditionalOn...
     │   └── FooProperties.java          # @ConfigurationProperties("platformcat.foo")
     └── resources/META-INF/spring/
@@ -55,6 +55,7 @@ feature-foo/
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
 | `platform`    | Основной модуль приложения. Точка входа — `PlatformcatApplication`. |
+| `platform-ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Подключается зависимостью. |
 
 ## Управление зависимостями
 
@@ -72,11 +73,12 @@ feature-foo/
 ## Логирование
 
 SLF4J как API, Logback как реализация. Уровни: `root = INFO`,
-`com.example = DEBUG`.
+`io.github.dr8b.platformcat = DEBUG`.
 
 ## Развитие
 
-- HTTP-слой (при необходимости) — через `spring-boot-starter-web`/`-webflux`,
-  тогда заработает и `server.port`.
+- HTTP-слой подключён через стартер `platform-ui-kit-starter` (зависит от
+  `spring-boot-starter-web`): при его подключении поднимается встроенный Tomcat
+  и работает `server.port`.
 - Прикладные слои (controller/service/repository) добавляются в модуль
   `platform` по мере формирования требований (см. [tz.md](tz.md)).
