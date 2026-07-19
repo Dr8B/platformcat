@@ -2,7 +2,7 @@ package io.github.dr8b.platformcat.uikit;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("platformcat.ui-kit")
+@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")
 public class UiKitProperties {
 
     private boolean enabled = true;

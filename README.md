@@ -26,14 +26,12 @@ platformcat/
 ├── app/                    # основной модуль
 │   ├── pom.xml
 │   └── src/
-│       ├── main/
-│       │   ├── java/io/github/dr8b/platformcat/
-│       │   │   └── PlatformcatApplication.java
-│       │   └── resources/
-│       │       ├── application.yml
-│       │       └── logback-spring.xml
-│       └── test/java/io/github/dr8b/platformcat/
-│           └── PlatformcatApplicationTests.java
+│       └── main/
+│           ├── java/io/github/dr8b/platformcat/
+│           │   └── Main.java
+│           └── resources/
+│               ├── application.yml
+│               └── logback-spring.xml
 ├── ui-kit-starter/         # стартер-плагин UI-kit
 │   ├── pom.xml
 │   └── src/main/
@@ -76,6 +74,10 @@ mvn test
 
 ## Соглашения разработки
 
-Правила для работы (в т.ч. для ассистента) описаны в [CLAUDE.md](CLAUDE.md):
-управление версиями зависимостей через parent POM и BOM, порядок коммитов,
-фиксация изменений требований в документации.
+- Префикс конфигурационных свойств стартера = `groupId.artifactId` (например,
+  `io.github.dr8b.platformcat.ui-kit-starter`). Тот же префикс используется в
+  `@ConfigurationProperties` и `@ConditionalOnProperty`.
+
+Остальные правила для работы (в т.ч. для ассистента) описаны в
+[CLAUDE.md](CLAUDE.md): управление версиями зависимостей через parent POM и BOM,
+порядок коммитов, фиксация изменений требований в документации.

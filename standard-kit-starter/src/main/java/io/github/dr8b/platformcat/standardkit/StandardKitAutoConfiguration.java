@@ -7,6 +7,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @AutoConfiguration(after = UiKitAutoConfiguration.class)
 @EnableConfigurationProperties(StandardKitProperties.class)
-@ConditionalOnProperty(prefix = "platformcat.standard-kit", name = "enabled", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "io.github.dr8b.platformcat.standard-kit-starter", name = "enabled", matchIfMissing = true)
 public class StandardKitAutoConfiguration {
 }

@@ -54,9 +54,9 @@ feature-foo/
 | Модуль        | Назначение                                    |
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
-| `app`         | Основной модуль приложения. Точка входа — `PlatformcatApplication`. |
-| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Зависит от `spring-boot-starter-web`. |
-| `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.standard-kit")`. Зависит от `ui-kit-starter`; подключён к `app`. |
+| `app`         | Основной модуль приложения. Точка входа — `Main`. |
+| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Зависит от `spring-boot-starter-web`. |
+| `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.standard-kit-starter")`. Зависит от `ui-kit-starter`; подключён к `app`. |
 
 ## Управление зависимостями
 
@@ -70,6 +70,9 @@ feature-foo/
 - `application.yml` — параметры приложения (имя, уровни логирования).
 - `logback-spring.xml` — конфигурация логирования: только консольный аппендер
   (stdout).
+- Префикс конфигурационных свойств стартера = `groupId.artifactId`
+  (например, `io.github.dr8b.platformcat.ui-kit-starter`). Он же используется в
+  `@ConfigurationProperties` и `@ConditionalOnProperty`.
 
 ## Логирование
 

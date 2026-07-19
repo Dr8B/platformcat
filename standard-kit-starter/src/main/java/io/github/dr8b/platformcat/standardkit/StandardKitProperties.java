@@ -2,7 +2,7 @@ package io.github.dr8b.platformcat.standardkit;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("platformcat.standard-kit")
+@ConfigurationProperties("io.github.dr8b.platformcat.standard-kit-starter")
 public class StandardKitProperties {
 
     private boolean enabled = true;

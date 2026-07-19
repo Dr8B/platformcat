@@ -6,6 +6,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @AutoConfiguration
 @EnableConfigurationProperties(UiKitProperties.class)
-@ConditionalOnProperty(prefix = "platformcat.ui-kit", name = "enabled", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "io.github.dr8b.platformcat.ui-kit-starter", name = "enabled", matchIfMissing = true)
 public class UiKitAutoConfiguration {
 }
