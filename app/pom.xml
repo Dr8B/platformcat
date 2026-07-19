@@ -11,12 +11,12 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>platform</artifactId>
+    <artifactId>app</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>io.github.dr8b.platformcat</groupId>
-            <artifactId>platform-standard-kit-starter</artifactId>
+            <artifactId>standard-kit-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

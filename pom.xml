@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>platform-ui-kit-starter</module>
-        <module>platform-standard-kit-starter</module>
-        <module>platform</module>
+        <module>ui-kit-starter</module>
+        <module>standard-kit-starter</module>
+        <module>app</module>
     </modules>
 
     <properties>

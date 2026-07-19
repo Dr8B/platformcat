@@ -12,7 +12,7 @@
 - **Сборка**: Maven (multi-module)
 - **Логирование**: SLF4J + Logback
 
-> HTTP-слой подключается через стартер `platform-ui-kit-starter` (тянет
+> HTTP-слой подключается через стартер `ui-kit-starter` (тянет
 > `spring-boot-starter-web`): при его подключении к приложению поднимается
 > встроенный Tomcat и работает `server.port`.
 
@@ -23,7 +23,7 @@ platformcat/
 ├── pom.xml                 # parent POM: версии, dependencyManagement, BOM
 ├── README.md
 ├── docs/                   # проектная документация (ТЗ, архитектура)
-├── platform/               # основной модуль
+├── app/                    # основной модуль
 │   ├── pom.xml
 │   └── src/
 │       ├── main/
@@ -34,7 +34,7 @@ platformcat/
 │       │       └── logback-spring.xml
 │       └── test/java/io/github/dr8b/platformcat/
 │           └── PlatformcatApplicationTests.java
-├── platform-ui-kit-starter/  # стартер-плагин UI-kit
+├── ui-kit-starter/         # стартер-плагин UI-kit
 │   ├── pom.xml
 │   └── src/main/
 │       ├── java/io/github/dr8b/platformcat/uikit/
@@ -42,7 +42,7 @@ platformcat/
 │       │   └── UiKitProperties.java
 │       └── resources/META-INF/spring/
 │           └── org.springframework.boot.autoconfigure.AutoConfiguration.imports
-└── platform-standard-kit-starter/  # стартер-плагин standard-kit (зависит от ui-kit)
+└── standard-kit-starter/   # стартер-плагин standard-kit (зависит от ui-kit)
     ├── pom.xml
     └── src/main/
         ├── java/io/github/dr8b/platformcat/standardkit/
@@ -61,7 +61,7 @@ mvn clean package
 
 ### Запуск
 ```bash
-mvn -pl platform spring-boot:run
+mvn -pl app spring-boot:run
 ```
 
 ### Тесты

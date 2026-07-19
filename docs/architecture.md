@@ -54,9 +54,9 @@ feature-foo/
 | Модуль        | Назначение                                    |
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
-| `platform`    | Основной модуль приложения. Точка входа — `PlatformcatApplication`. |
-| `platform-ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Зависит от `spring-boot-starter-web`. |
-| `platform-standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.standard-kit")`. Зависит от `platform-ui-kit-starter`; подключён к `platform`. |
+| `app`         | Основной модуль приложения. Точка входа — `PlatformcatApplication`. |
+| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.ui-kit")`. Зависит от `spring-boot-starter-web`. |
+| `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("platformcat.standard-kit")`. Зависит от `ui-kit-starter`; подключён к `app`. |
 
 ## Управление зависимостями
 
@@ -78,8 +78,8 @@ SLF4J как API, Logback как реализация. Уровни: `root = INF
 
 ## Развитие
 
-- HTTP-слой подключён через стартер `platform-ui-kit-starter` (зависит от
+- HTTP-слой подключён через стартер `ui-kit-starter` (зависит от
   `spring-boot-starter-web`): при его подключении поднимается встроенный Tomcat
   и работает `server.port`.
 - Прикладные слои (controller/service/repository) добавляются в модуль
-  `platform` по мере формирования требований (см. [tz.md](tz.md)).
+  `app` по мере формирования требований (см. [tz.md](tz.md)).
