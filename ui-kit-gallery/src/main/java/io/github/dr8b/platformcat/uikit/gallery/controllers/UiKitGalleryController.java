@@ -1,4 +1,4 @@
-package io.github.dr8b.platformcat.uikit.controllers;
+package io.github.dr8b.platformcat.uikit.gallery.controllers;
 
 import io.github.dr8b.platformcat.uikit.UiKit;
 import io.github.dr8b.platformcat.uikit.services.UiComponentRegistry;

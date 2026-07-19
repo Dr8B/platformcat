@@ -32,19 +32,25 @@ platformcat/
 │           └── resources/
 │               ├── application.yml
 │               └── logback-spring.xml
-├── ui-kit-starter/         # стартер-плагин UI-kit + галерея компонентов
+├── ui-kit-starter/         # стартер-плагин UI-kit (компоненты + выдача .js)
 │   ├── pom.xml
 │   └── src/main/
 │       ├── java/io/github/dr8b/platformcat/uikit/
-│       │   ├── Main.java                  # standalone-запуск галереи
 │       │   ├── UiKit.java                 # базовые пути (groupId/artifactId)
-│       │   ├── UiKitAutoConfiguration.java
-│       │   ├── UiKitProperties.java
-│       │   ├── component/                 # метаданные компонентов (реестр)
-│       │   └── web/                       # контроллеры: выдача .js и галерея
+│       │   ├── config/                    # автоконфигурация и свойства
+│       │   ├── controllers/               # выдача компонентов как .js
+│       │   ├── services/                  # реестр компонентов
+│       │   └── model/                     # модель компонентов
 │       └── resources/
 │           ├── META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-│           ├── ui-kit/static/             # исходники веб-компонентов pc-*.js
+│           └── ui-kit/static/             # исходники веб-компонентов pc-*.js
+├── ui-kit-gallery/         # standalone-приложение галереи (зависит от ui-kit-starter)
+│   ├── pom.xml
+│   └── src/main/
+│       ├── java/io/github/dr8b/platformcat/uikit/gallery/
+│       │   ├── Main.java                  # standalone-запуск галереи
+│       │   └── controllers/               # контроллер галереи
+│       └── resources/
 │           └── templates/ui-kit/gallery.html
 └── standard-kit-starter/   # стартер-плагин standard-kit (зависит от ui-kit)
     ├── pom.xml
@@ -74,20 +80,16 @@ mvn test
 ```
 
 ### Галерея UI Kit
-Запуск модуля `ui-kit-starter` отдельно, чтобы посмотреть все компоненты:
+Галерея живёт в отдельном модуле `ui-kit-gallery` (standalone-приложение,
+зависит от `ui-kit-starter`). Сам стартер `ui-kit-starter` галерею не содержит —
+только компоненты и выдачу их `.js`. Запуск галереи:
 ```bash
-mvn -pl ui-kit-starter spring-boot:run
+mvn -pl ui-kit-gallery spring-boot:run
 ```
 Затем открыть <http://localhost:8080/io.github.dr8b.platformcat/ui-kit-starter>.
 Компоненты выбираются в дереве слева, превью — сверху по центру, атрибуты и
 примеры значений — снизу. Сами компоненты отдаются как `.js` по адресу
 `/io.github.dr8b.platformcat/ui-kit-starter/static/<component>.js`.
-
-Галерея активна только при настройке
-`io.github.dr8b.platformcat.ui-kit-starter.gallery=true` (по умолчанию выключена).
-`Main` модуля выставляет её как системную проперть перед запуском Spring Boot,
-поэтому в standalone-режиме она доступна; при подключении стартера как
-зависимости галерея не поднимается, если свойство не задано.
 
 ## Документация
 

@@ -1,7 +1,6 @@
 package io.github.dr8b.platformcat.uikit.config;
 
 import io.github.dr8b.platformcat.uikit.controllers.UiKitComponentController;
-import io.github.dr8b.platformcat.uikit.controllers.UiKitGalleryController;
 import io.github.dr8b.platformcat.uikit.services.UiComponentRegistry;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,12 +19,5 @@ public class UiKitAutoConfiguration {
     @ConditionalOnMissingBean
     public UiComponentRegistry uiComponentRegistry() {
         return new UiComponentRegistry();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "io.github.dr8b.platformcat.ui-kit-starter", name = "gallery")
-    public UiKitGalleryController uiKitGalleryController(UiComponentRegistry uiComponentRegistry) {
-        return new UiKitGalleryController(uiComponentRegistry);
     }
 }

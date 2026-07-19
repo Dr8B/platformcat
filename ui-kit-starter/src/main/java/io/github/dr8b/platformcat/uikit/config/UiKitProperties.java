@@ -7,8 +7,6 @@ public class UiKitProperties {
 
     private boolean enabled = true;
 
-    private boolean gallery = false;
-
     private String theme = "default";
 
     public boolean isEnabled() {
@@ -17,14 +15,6 @@ public class UiKitProperties {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public boolean isGallery() {
-        return gallery;
-    }
-
-    public void setGallery(boolean gallery) {
-        this.gallery = gallery;
     }
 
     public String getTheme() {

@@ -55,7 +55,8 @@ feature-foo/
 |---------------|-----------------------------------------------|
 | `platformcat` | Родительский POM: версии, `dependencyManagement`, импорт BOM `spring-boot-dependencies`. |
 | `app`         | Основной модуль приложения. Точка входа — `Main`. |
-| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Набор веб-компонентов (`pc-*`), контроллер выдачи их `.js`, Thymeleaf-галерея и собственный `Main` для standalone-запуска. Зависит от `spring-boot-starter-web`, `spring-boot-starter-thymeleaf`. |
+| `ui-kit-starter` | Стартер-плагин UI-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.ui-kit-starter")`. Набор веб-компонентов (`pc-*`) и контроллер выдачи их `.js`. Зависит от `spring-boot-starter-web`, `spring-boot-starter-thymeleaf`. |
+| `ui-kit-gallery` | Standalone-приложение галереи: контроллер галереи, Thymeleaf-шаблон и собственный `Main` для просмотра компонентов. Зависит от `ui-kit-starter`; в `app` не подключается. |
 | `standard-kit-starter` | Стартер-плагин standard-kit: `@AutoConfiguration` + `@ConfigurationProperties("io.github.dr8b.platformcat.standard-kit-starter")`. Зависит от `ui-kit-starter`; подключён к `app`. |
 
 ## Управление зависимостями
@@ -87,19 +88,19 @@ elements с префиксом `pc-`): `pc-button`, `pc-input`, `pc-checkbox`, `
   `/io.github.dr8b.platformcat/ui-kit-starter/static/pc-button.js`. Базовый путь
   централизован в классе `UiKit`.
 - **Метаданные** (описание, атрибуты, примеры значений) — `UiComponentRegistry`.
-- **Галерея**: `UiKitGalleryController` + Thymeleaf-шаблон `ui-kit/gallery.html`
-  на `/<groupId>/<artifactId>`. Слева — дерево компонентов по категориям,
-  сверху по центру — превью выбранного компонента, снизу — таблица атрибутов и
-  примеры разметки. Контроллер галереи создаётся только при заданной настройке
-  `io.github.dr8b.platformcat.ui-kit-starter.gallery` (по умолчанию выключена):
-  когда стартер подключён как зависимость, галерея не поднимается.
-- **Standalone-запуск**: `io.github.dr8b.platformcat.uikit.Main`
-  (`mvn -pl ui-kit-starter spring-boot:run`) — поднимает только этот модуль, всё
-  остальное приходит через автоконфигурацию. `Main` перед стартом Spring Boot
-  выставляет системную проперть `…ui-kit-starter.gallery=true`, поэтому в
-  standalone-режиме галерея доступна. Контроллеры и реестр регистрируются в
-  `UiKitAutoConfiguration` (`@Import` + `@Bean`), поэтому доступны и при
-  подключении стартера как зависимости.
+- **Регистрация**: контроллер выдачи `.js` и реестр компонентов регистрируются
+  в `UiKitAutoConfiguration` (`@Import` + `@Bean`), поэтому доступны как при
+  standalone-запуске галереи, так и при подключении стартера как зависимости.
+- **Галерея** вынесена в отдельный модуль `ui-kit-gallery` (зависит от
+  `ui-kit-starter`): `UiKitGalleryController` + Thymeleaf-шаблон
+  `ui-kit/gallery.html` на `/<groupId>/<artifactId>`. Слева — дерево компонентов
+  по категориям, сверху по центру — превью выбранного компонента, снизу —
+  таблица атрибутов и примеры разметки. Сам стартер галерею не содержит,
+  поэтому при подключении `ui-kit-starter` как зависимости она не поднимается.
+- **Standalone-запуск** галереи: `io.github.dr8b.platformcat.uikit.gallery.Main`
+  (`mvn -pl ui-kit-gallery spring-boot:run`) — `@SpringBootApplication`, поднимает
+  свой контроллер галереи, а реестр и выдачу `.js` берёт из автоконфигурации
+  `ui-kit-starter`.
 
 ## Логирование
 

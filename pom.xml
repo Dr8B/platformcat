@@ -11,6 +11,7 @@
 
     <modules>
         <module>ui-kit-starter</module>
+        <module>ui-kit-gallery</module>
         <module>standard-kit-starter</module>
         <module>app</module>
     </modules>
